@@ -8,20 +8,23 @@
         <h1 class="title">
           Choose your dream destination...
         </h1>
+        <Ticket :ticket="selectedTicket" />
         <div class="links">
           <ul>
-            <li v-for="ticket in getTickets" :key="ticket.code">
-                {{ ticket.passenger }}
-                {{ ticket.flight }}
-                {{ ticket.from }}
-                {{ ticket.to }}
-                {{ ticket.class }}
-                {{ ticket.gate }}
-                {{ ticket.time }}
-                {{ ticket.seat }}
-                {{ ticket.number }}
+            <li @click="selectTicket(ticket)" v-for="ticket in getTickets" :key="ticket.code">
+              {{ ticket.passenger }}
+              {{ ticket.flight }}
+              {{ ticket.from }}
+              {{ ticket.to }}
+              {{ ticket.class }}
+              {{ ticket.gate }}
+              {{ ticket.time }}
+              {{ ticket.seat }}
+              {{ ticket.number }}
             </li>
-            <p v-if="getTickets.length == 0">Aucun billet.</p>
+            <p v-if="getTickets.length == 0">
+              Aucun billet.
+            </p>
           </ul>
         </div>
       </div>
@@ -31,8 +34,17 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import Ticket from '../components/Ticket'
 
 export default {
+  data () {
+    return {
+      selectedTicket: {}
+    }
+  },
+  components: {
+    Ticket
+  },
   computed: {
     ...mapGetters(['getTickets'])
   },
@@ -42,7 +54,10 @@ export default {
   methods: {
     ...mapActions([
       'getTicketsAPI'
-    ])
+    ]),
+    selectTicket (ticket) {
+      this.selectedTicket = ticket
+    }
   }
 }
 </script>
