@@ -9,9 +9,20 @@
           Choose your dream destination...
         </h1>
         <div class="links">
-          <nuxt-link v-for="destination in getDestinations" :to="{name: 'tickets', params: {code: destination.code}}">
-            <a class="giant-button"> {{ destination.name }} </a>
-          </nuxt-link>
+          <ul>
+            <li v-for="ticket in getTickets" :key="ticket.code">
+                {{ ticket.passenger }}
+                {{ ticket.flight }}
+                {{ ticket.from }}
+                {{ ticket.to }}
+                {{ ticket.class }}
+                {{ ticket.gate }}
+                {{ ticket.time }}
+                {{ ticket.seat }}
+                {{ ticket.number }}
+            </li>
+            <p v-if="getTickets.length == 0">Aucun billet.</p>
+          </ul>
         </div>
       </div>
     </div>
@@ -23,14 +34,14 @@ import { mapActions, mapGetters } from 'vuex'
 
 export default {
   computed: {
-    ...mapGetters(['getDestinations'])
+    ...mapGetters(['getTickets'])
   },
   created () {
-    this.getDestinationsAPI()
+    this.getTicketsAPI(this.$route.params.code)
   },
   methods: {
     ...mapActions([
-      'getDestinationsAPI'
+      'getTicketsAPI'
     ])
   }
 }
