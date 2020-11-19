@@ -5,12 +5,13 @@
     </div>
     <div class="content">
       <div>
-        <h1 class="title">Choose your dream destination...</h1>
+        <h1 class="title">
+          Choose your dream destination...
+        </h1>
         <div class="links">
-          <a href="#" class="giant-button"> San Francisco, USA </a>
-          <a href="#" class="giant-button"> Québec, Canada </a>
-          <a href="#" class="giant-button"> Bora Bora, Polynésie </a>
-          <a href="#" class="giant-button"> Torres del Paine, Chile </a>
+          <a v-for="destination in getDestinations" :key="destination.code" href="#" class="giant-button">
+            {{ destination.name }}
+          </a>
         </div>
       </div>
     </div>
@@ -18,7 +19,24 @@
 </template>
 
 <script>
-export default {}
+import { mapActions, mapGetters } from 'vuex'
+
+export default {
+  data () {
+    return {}
+  },
+  computed: {
+    ...mapGetters(['getDestinations'])
+  },
+  created () {
+    this.getDestinationsAPI()
+  },
+  methods: {
+    ...mapActions([
+      'getDestinationsAPI'
+    ])
+  }
+}
 </script>
 
 <style lang="scss">
