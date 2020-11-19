@@ -8,7 +8,7 @@
         <h1 class="title">
           Choose your dream destination...
         </h1>
-        <Ticket :ticket="selectedTicket" />
+        <Ticket v-if="selectedTicket" :ticket="selectedTicket" />
         <div class="links">
           <ul>
             <li @click="selectTicket(ticket)" v-for="ticket in getTickets" :key="ticket.code">
@@ -39,7 +39,7 @@ import Ticket from '../components/Ticket'
 export default {
   data () {
     return {
-      selectedTicket: {}
+      selectedTicket: null
     }
   },
   components: {
